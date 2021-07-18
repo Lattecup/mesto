@@ -1,4 +1,4 @@
-.element__content {
+.card__content {
   width: 246px;
   display: flex;
   justify-content: space-between;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .element__content {
+  .card__content {
     margin: 23px auto 25px;
   }
 }

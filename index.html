@@ -10,7 +10,7 @@
 <body class="page">
   <!--Шапка-->
   <header class="header">
-    <img src="./images/header-logo.svg" alt="Логотип" class="header__logo">
+    <a href="#" class="header__logo"></a>
   </header>
   <main class="content">
     <!--Секция profile-->
@@ -18,56 +18,55 @@
       <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar">
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button"></button>
+        <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
         <p class="profile__subtitle">Исследователь океана</p>
       </div>
-      <button class="profile__add-button"></button>
+      <button type="button" class="profile__add-button" aria-label="Добавить фотографию"></button>
     </section>
-    <!--Секция elements-->
-    <!--Можно оставить так? Или лучше списком или через тег <figure>? ;-) -->
-    <section class="elements">
-        <div class="element">
-          <img src="./images/elements-elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-          <div class="element__content">
-            <h2 class="element__caption">Гора Эльбрус</h2>
-            <button class="element__like-button"></button>
+    <!--Секция cards-->
+    <section class="cards">
+        <article class="card">
+          <img src="./images/elements-elbrus.jpg" alt="Гора Эльбрус" class="card__image">
+          <div class="card__content">
+            <h2 class="card__caption">Гора Эльбрус</h2>
+            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img src="./images/elements-kappadokiya.jpg" alt="Шары в Каппадокии" class="element__image">
-          <div class="element__content">
-            <h2 class="element__caption">Шары в Каппадокии</h2>
-            <button class="element__like-button"></button>
+        </article>
+        <article class="card">
+          <img src="./images/elements-kappadokiya.jpg" alt="Шары в Каппадокии" class="card__image">
+          <div class="card__content">
+            <h2 class="card__caption">Шары в Каппадокии</h2>
+            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img src="./images/elements-kamchatka.jpg" alt="Закат на Камчатке" class="element__image">
-          <div class="element__content">
-            <h2 class="element__caption">Закат на Камчатке</h2>
-            <button class="element__like-button"></button>
+        </article>
+        <article class="card">
+          <img src="./images/elements-kamchatka.jpg" alt="Закат на Камчатке" class="card__image">
+          <div class="card__content">
+            <h2 class="card__caption">Закат на Камчатке</h2>
+            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img src="./images/elements-himalayas.jpg" alt="Гималаи" class="element__image">
-          <div class="element__content">
-            <h2 class="element__caption">Гималаи</h2>
-            <button class="element__like-button"></button>
+        </article>
+        <article class="card">
+          <img src="./images/elements-himalayas.jpg" alt="Гималаи" class="card__image">
+          <div class="card__content">
+            <h2 class="card__caption">Гималаи</h2>
+            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img src="./images/elements-makovoe-pole.jpg" alt="Маковое поле" class="element__image">
-          <div class="element__content">
-            <h2 class="element__caption">Маковое поле</h2>
-            <button class="element__like-button"></button>
+        </article>
+        <article class="card">
+          <img src="./images/elements-makovoe-pole.jpg" alt="Маковое поле" class="card__image">
+          <div class="card__content">
+            <h2 class="card__caption">Маковое поле</h2>
+            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
           </div>
-        </div>
-        <div class="element">
-          <img src="./images/elements-iceland-northen-lights.jpg" alt="Северное сияние в Исландии" class="element__image">
-          <div class="element__content">
-            <h2 class="element__caption">Северное сияние Исландии</h2>
-            <button class="element__like-button"></button>
+        </article>
+        <article class="card">
+          <img src="./images/elements-iceland-northen-lights.jpg" alt="Северное сияние в Исландии" class="card__image">
+          <div class="card__content">
+            <h2 class="card__caption">Северное сияние Исландии</h2>
+            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
           </div>
-        </div>
+        </article>
     </section>
   </main>
   <!--Подвал-->
@@ -75,19 +74,19 @@
     <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
   </footer>
   <!--Popup-->
-  <div class="popup">
+  <article class="popup">
     <div class="popup__container">
-      <form class="form">
+      <form class="form" name="editProfile">
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__fieldset">
-          <input type="text" class="form__input form__input_type_title">
-          <input type="text" class="form__input form__input_type_subtitle">
-          <button class="form__submit-button">Сохранить</button>
+          <input type="text" class="form__input form__input_type_title" name="nameInput">
+          <input type="text" class="form__input form__input_type_subtitle" name="jobInput">
+          <button type="submit" class="form__submit-button">Сохранить</button>
         </fieldset>
-        <button class="popup__close-button"></button>
+        <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
       </form>
     </div>
-  </div>
+  </article>
   <script src="./scripts/index.js"></script>
 </body>
 </html>

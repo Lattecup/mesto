@@ -4,7 +4,7 @@
   border-left: 0;
   border-right: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-  padding: 30px 0 13px;
+  padding: 22px 0 17px;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -24,4 +24,10 @@
   outline: none;
   border: 2px solid #009688;
   border-radius: 2px;
+}
+
+@media screen and (max-width: 620px) {
+  .form__input {
+    padding: 31px 0 9px;
+  }
 }

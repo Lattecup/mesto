@@ -1,4 +1,4 @@
-.element__like-button {
+.card__like-button {
   background-image: url(../../../images/like-button.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -12,6 +12,6 @@
   transition: opacity 1s;
 }
 
-.element__like-button:hover {
+.card__like-button:hover {
   opacity: 0.5;
 }
