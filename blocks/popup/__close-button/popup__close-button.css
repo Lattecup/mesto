@@ -12,7 +12,7 @@
   box-sizing: border-box;
   position: absolute;
   top: -40px;
-  left: 438px;
+  right: -40px;
   transition: opacity 1s;
 }
 
@@ -24,7 +24,7 @@
   .popup__close-button {
     width: 20px;
     height: 20px;
-    top: -36px;
-    left: 262px;
+    top: -38px;
+    right: 0;
   }
 }

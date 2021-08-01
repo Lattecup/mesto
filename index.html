@@ -25,48 +25,6 @@
     </section>
     <!--Секция cards-->
     <section class="cards">
-        <article class="card">
-          <img src="./images/elements-elbrus.jpg" alt="Гора Эльбрус" class="card__image">
-          <div class="card__content">
-            <h2 class="card__caption">Гора Эльбрус</h2>
-            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/elements-kappadokiya.jpg" alt="Шары в Каппадокии" class="card__image">
-          <div class="card__content">
-            <h2 class="card__caption">Шары в Каппадокии</h2>
-            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/elements-kamchatka.jpg" alt="Закат на Камчатке" class="card__image">
-          <div class="card__content">
-            <h2 class="card__caption">Закат на Камчатке</h2>
-            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/elements-himalayas.jpg" alt="Гималаи" class="card__image">
-          <div class="card__content">
-            <h2 class="card__caption">Гималаи</h2>
-            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/elements-makovoe-pole.jpg" alt="Маковое поле" class="card__image">
-          <div class="card__content">
-            <h2 class="card__caption">Маковое поле</h2>
-            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/elements-iceland-northen-lights.jpg" alt="Северное сияние в Исландии" class="card__image">
-          <div class="card__content">
-            <h2 class="card__caption">Северное сияние Исландии</h2>
-            <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
-          </div>
-        </article>
     </section>
   </main>
   <!--Подвал-->
@@ -74,19 +32,55 @@
     <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
   </footer>
   <!--Popup-->
-  <article class="popup">
+  <article class="popup popup__edit-profile">
     <div class="popup__container">
-      <form class="form" name="editProfile">
+      <form class="form form__edit-profile" name="edit-profile">
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__fieldset">
-          <input type="text" class="form__input form__input_type_title" name="nameInput">
-          <input type="text" class="form__input form__input_type_subtitle" name="jobInput">
+          <input type="text" class="form__input form__input_type_title" name="name-input" placeholder="Введите имя">
+          <input type="text" class="form__input form__input_type_subtitle" name="job-input" placeholder="Введите профессию">
           <button type="submit" class="form__submit-button">Сохранить</button>
         </fieldset>
         <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
       </form>
     </div>
   </article>
+
+  <article class="popup popup__add-card">
+    <div class="popup__container">
+      <form class="form form__add-card" name="add-card">
+        <h2 class="form__heading">Новое место</h2>
+        <fieldset class="form__fieldset">
+          <input type="text" class="form__input form__input_type_place" name="place-input" placeholder="Название">
+          <input type="url" class="form__input form__input_type_link" name="link-input" placeholder="Ссылка на картинку">
+          <button type="submit" class="form__submit-button">Создать</button>
+        </fieldset>
+        <button type="button" class="popup__close-button" aria-label="Создать"></button>
+      </form>
+    </div>
+  </article>
+
+  <article class="popup popup__show-image">
+    <div class="popup__figure-container">
+      <figure class="popup__figure">
+        <img src="" alt="Изображение" class="popup__image">
+        <figcaption class="popup__image-caption"></figcaption>
+      </figure>
+      <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
+    </div>
+  </article>
+
+  <template id="card-template">
+    <article class="card">
+      <button type="button" class="card__remove-button"></button>
+      <img src="" alt="Изображение" class="card__image">
+      <div class="card__content">
+        <h2 class="card__caption"></h2>
+        <button type="button" class="card__like-button" aria-label="Поставить лайк"></button>
+      </div>
+    </article>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 </html>

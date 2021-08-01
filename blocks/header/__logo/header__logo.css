@@ -3,6 +3,7 @@
   background-image: url(../../../images/header-logo.svg);
   background-repeat: no-repeat;
   background-size: cover;
+  box-sizing: border-box;
   width: 142px;
   height: 33px;
   margin-bottom: 41px;
