@@ -106,11 +106,9 @@ function addFormSubmitHandler (evt) {
 };
 
 // Закрытие всех попапов
-closeButtons.forEach((item) => {
-  const popup = item.closest('.popup');
-  item.addEventListener('click', function() {
-    closePopup(popup);
-  });
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
 });
 
 editButton.addEventListener('click', openEditPopup);
