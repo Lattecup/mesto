@@ -114,8 +114,6 @@ closeButtons.forEach((item) => {
 });
 
 editButton.addEventListener('click', openEditPopup);
-addButton.addEventListener('click', function() {
-  openPopup(addCardPopup);
-});
+addButton.addEventListener('click', () => openPopup(addCardPopup));
 formElement.addEventListener('submit', formSubmitHandler);
 cardFormElement.addEventListener('submit', addFormSubmitHandler);
