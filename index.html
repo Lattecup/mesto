@@ -34,11 +34,13 @@
   <!--Popup-->
   <article class="popup popup-edit">
     <div class="popup__container">
-      <form class="form form-edit" name="edit-profile">
+      <form class="form form-edit" name="edit-profile" novalidate>
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__fieldset">
-          <input type="text" class="form__input form__input_type_title" name="name-input" placeholder="Введите имя">
-          <input type="text" class="form__input form__input_type_subtitle" name="job-input" placeholder="Введите профессию">
+          <input id="name-input" type="text" class="form__input form__input_type_title" name="name" placeholder="Введите имя" required minlength="2" maxlength="40">
+          <span class="form__input-error name-input-error"></span>
+          <input id="job-input" type="text" class="form__input form__input_type_subtitle" name="job" placeholder="Введите профессию" required minlength="2" maxlength="200">
+          <span class="form__input-error job-input-error"></span>
           <button type="submit" class="form__submit-button">Сохранить</button>
         </fieldset>
         <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
@@ -48,11 +50,13 @@
 
   <article class="popup popup-add">
     <div class="popup__container">
-      <form class="form form-add" name="add-card">
+      <form class="form form-add" name="add-card" novalidate>
         <h2 class="form__heading">Новое место</h2>
         <fieldset class="form__fieldset">
-          <input type="text" class="form__input form__input_type_place" name="place-input" placeholder="Название">
-          <input type="url" class="form__input form__input_type_link" name="link-input" placeholder="Ссылка на картинку">
+          <input id="place-input" type="text" class="form__input form__input_type_place" name="place" placeholder="Название" required minlength="2" maxlength="30">
+          <span class="form__input-error place-input-error"></span>
+          <input id="link-input" type="url" class="form__input form__input_type_link" name="link" placeholder="Ссылка на картинку" required>
+          <span class="form__input-error link-input-error"></span>
           <button type="submit" class="form__submit-button">Создать</button>
         </fieldset>
         <button type="button" class="popup__close-button" aria-label="Создать"></button>
@@ -83,5 +87,6 @@
 
   <script src="./scripts/initial-cards.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
