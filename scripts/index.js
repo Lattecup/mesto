@@ -70,8 +70,8 @@ initialCards.forEach((element) => {
 
 // Закрытие попапа по Esc
 const closePopupByEsc = (evt) => {
-  const openedPopup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   };
 };
@@ -96,8 +96,14 @@ function openEditPopup() {
   openPopup(editProfilePopup);
 };
 
+// Открытие попапа добавления карточки
+const openAddCardPopup = () => {
+  openPopup(addCardPopup);
+  cardFormElement.reset();
+};
+
 // Редактирование данных профиля
-function formSubmitHandler (evt) {
+function editFormSubmitHandler (evt) {
   evt.preventDefault();
 
   profileTitle.textContent = nameInput.value;
@@ -124,9 +130,8 @@ closeButtons.forEach((button) => {
 
 // Закрытие попапа по overlay
 const closePopupByOverlay = (evt) => {
-  const openedPopup = document.querySelector('.popup_opened');
-  if (evt.target === openedPopup) {
-    closePopup(openedPopup);
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
   };
 };
 
@@ -136,6 +141,6 @@ popups.forEach((popup) => {
 });
 
 editButton.addEventListener('click', openEditPopup);
-addButton.addEventListener('click', () => openPopup(addCardPopup));
-formEditElement.addEventListener('submit', formSubmitHandler);
+addButton.addEventListener('click', openAddCardPopup);
+formEditElement.addEventListener('submit', editFormSubmitHandler);
 cardFormElement.addEventListener('submit', addFormSubmitHandler);

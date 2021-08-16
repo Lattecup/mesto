@@ -25,22 +25,6 @@ const checkInputValidity = (formElement, inputElement, selectors) => {
   };
 };
 
-// Проверка валидности всей полей ввода
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
-// Переключение кнопки submit
-const toggleButtonState = (inputList, buttonElement, selectors) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(selectors.disabledButtonClass);
-  } else {
-    buttonElement.classList.remove(selectors.disabledButtonClass);
-  };
-}; 
-
 // Добавление обработчиков всем полям формы
 const setEventListeners = (formElement, selectors) => {
   const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
@@ -54,7 +38,28 @@ const setEventListeners = (formElement, selectors) => {
       toggleButtonState(inputList, buttonElement, selectors);
     });
   });
+  formElement.addEventListener('reset', () => {
+    toggleButtonState(inputList, buttonElement, selectors);
+  });
 };
+
+// Проверка валидности всех полей ввода
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+// Переключение кнопки submit
+const toggleButtonState = (inputList, buttonElement, selectors) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(selectors.disabledButtonClass);
+    buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.classList.remove(selectors.disabledButtonClass);
+    buttonElement.removeAttribute('disabled');
+  };
+}; 
 
 // Включение валидации форм
 const enableValidation = (selectors) => {
