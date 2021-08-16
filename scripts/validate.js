@@ -25,24 +25,6 @@ const checkInputValidity = (formElement, inputElement, selectors) => {
   };
 };
 
-// Добавление обработчиков всем полям формы
-const setEventListeners = (formElement, selectors) => {
-  const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
-  const buttonElement = formElement.querySelector(selectors.submitButtonSelector);
-
-  toggleButtonState(inputList, buttonElement, selectors);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      checkInputValidity(formElement, inputElement, selectors);
-      toggleButtonState(inputList, buttonElement, selectors);
-    });
-  });
-  formElement.addEventListener('reset', () => {
-    toggleButtonState(inputList, buttonElement, selectors);
-  });
-};
-
 // Проверка валидности всех полей ввода
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
@@ -60,6 +42,24 @@ const toggleButtonState = (inputList, buttonElement, selectors) => {
     buttonElement.removeAttribute('disabled');
   };
 }; 
+
+// Добавление обработчиков всем полям формы
+const setEventListeners = (formElement, selectors) => {
+  const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
+  const buttonElement = formElement.querySelector(selectors.submitButtonSelector);
+
+  toggleButtonState(inputList, buttonElement, selectors);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(formElement, inputElement, selectors);
+      toggleButtonState(inputList, buttonElement, selectors);
+    });
+  });
+  formElement.addEventListener('reset', () => {
+    toggleButtonState(inputList, buttonElement, selectors);
+  });
+};
 
 // Включение валидации форм
 const enableValidation = (selectors) => {
