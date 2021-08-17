@@ -1,3 +1,12 @@
+const currentValidationSettings = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit-button',
+  disabledButtonClass: 'form__submit-button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+
 // Показать класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage, selectors) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -41,7 +50,19 @@ const toggleButtonState = (inputList, buttonElement, selectors) => {
     buttonElement.classList.remove(selectors.disabledButtonClass);
     buttonElement.removeAttribute('disabled');
   };
-}; 
+};
+
+// Валидация открываемого попапа
+const validateOpenPopup = (formElement, selectors) => {
+  const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
+  const buttonElement = formElement.querySelector(selectors.submitButtonSelector);
+
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, selectors);
+  });
+
+  toggleButtonState(inputList, buttonElement, selectors);
+};
 
 // Добавление обработчиков всем полям формы
 const setEventListeners = (formElement, selectors) => {
@@ -55,9 +76,6 @@ const setEventListeners = (formElement, selectors) => {
       checkInputValidity(formElement, inputElement, selectors);
       toggleButtonState(inputList, buttonElement, selectors);
     });
-  });
-  formElement.addEventListener('reset', () => {
-    toggleButtonState(inputList, buttonElement, selectors);
   });
 };
 
@@ -73,11 +91,4 @@ const enableValidation = (selectors) => {
   });
 };
 
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit-button',
-  disabledButtonClass: 'form__submit-button_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-});
+enableValidation(currentValidationSettings);

@@ -40,7 +40,7 @@ function createCard(element) {
 };
 
 // Поставить/удалить лайк 
-function handleLikeIcon (evt) {
+function handleLikeIcon(evt) {
   evt.target.classList.toggle('card__like-button_active');
 };
 
@@ -50,7 +50,7 @@ const handleRemoveCard = (evt) => {
 };
 
 // Превью изображения
-function handlePreviewImage (evt) {
+function handlePreviewImage(evt) {
   imagePopup.src = evt.target.src;
   imagePopup.alt = evt.target.alt;
   imageCaptionPopup.textContent = evt.target.alt;
@@ -93,13 +93,16 @@ function openEditPopup() {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 
+  validateOpenPopup(formEditElement, currentValidationSettings);
   openPopup(editProfilePopup);
 };
 
 // Открытие попапа добавления карточки
 const openAddCardPopup = () => {
-  openPopup(addCardPopup);
   cardFormElement.reset();
+
+  validateOpenPopup(cardFormElement, currentValidationSettings);
+  openPopup(addCardPopup);
 };
 
 // Редактирование данных профиля
@@ -119,7 +122,6 @@ function addFormSubmitHandler (evt) {
   renderCard({name: placeInput.value, link: linkInput.value}, cards);
   
   closePopup(addCardPopup);
-  cardFormElement.reset();
 };
 
 // Закрытие всех попапов по крестику
