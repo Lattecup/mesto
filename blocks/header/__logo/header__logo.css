@@ -2,7 +2,7 @@
   display: block;
   background-image: url(../../../images/header-logo.svg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   box-sizing: border-box;
   width: 142px;
   height: 33px;
