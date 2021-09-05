@@ -1,11 +1,11 @@
 import { Card } from './Card.js';
 import { initialCards } from './initial-cards.js';
 import { FormValidator } from './FormValidator.js';
-export { openPopup };
+export { openPopup, cardImagePopup, imagePopup, imageCaptionPopup };
 
 const editProfilePopup = document.querySelector('.popup-edit');
 const addCardPopup = document.querySelector('.popup-add');
-//const cardImagePopup = document.querySelector('.popup-image');
+const cardImagePopup = document.querySelector('.popup-image');
 const popups = document.querySelectorAll('.popup');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -15,14 +15,14 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 const formEditElement = document.querySelector('.form-edit');
 const nameInput = formEditElement.querySelector('.form__input_type_title');
 const jobInput = formEditElement.querySelector('.form__input_type_subtitle');
-const cardFormElement = document.querySelector('.form-add');
-const placeInput = cardFormElement.querySelector('.form__input_type_place');
-const linkInput = cardFormElement.querySelector('.form__input_type_link');
+const formCardElement = document.querySelector('.form-add');
+const placeInput = formCardElement.querySelector('.form__input_type_place');
+const linkInput = formCardElement.querySelector('.form__input_type_link');
 //const cardTemplate = document.querySelector('#card-template');
 //const cardContent = cardTemplate.content.querySelector('.card');
 const cards = document.querySelector('.cards');
-//const imagePopup = document.querySelector('.popup__image');
-//const imageCaptionPopup = document.querySelector('.popup__image-caption');
+const imagePopup = document.querySelector('.popup__image');
+const imageCaptionPopup = document.querySelector('.popup__image-caption');
 const validationSettings = {
   formSelector: '.form',
   inputSelector: '.form__input',
@@ -32,10 +32,23 @@ const validationSettings = {
   errorClass: 'form__input-error_active'
 };
 
+// Валидатор формы добавления карточки
+const addCardFormValidator = new FormValidator(formCardElement, validationSettings);
+addCardFormValidator.enableValidation();
+
+// Валидатор формы редактирования профиля
+const editProfileFormValidator = new FormValidator(formEditElement, validationSettings);
+editProfileFormValidator.enableValidation();
+
+// Создание экземпляра карточки
+function createCard(element, cardTemplate) {
+  return new Card(element, cardTemplate);
+};
+
 // Добавление карточки в контейнер
 function renderCard(element) {
-  const card = new Card(element, '#card-template');
-  cards.prepend(card.createCard());
+  const card = createCard(element, '#card-template');
+  cards.prepend(card.generateCard());
 };
 
 // Заполнение страницы исходным массивом
@@ -68,19 +81,15 @@ function openEditPopup() {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 
-  const formEditValidator = new FormValidator(formEditElement, validationSettings);
-  formEditValidator.validateOpenPopup();
-
+  editProfileFormValidator.resetFormValidationState();
   openPopup(editProfilePopup);
 };
 
 // Открытие попапа добавления карточки
 const openAddCardPopup = () => {
-  cardFormElement.reset();
+  formCardElement.reset();
 
-  const formAddValidator = new FormValidator(cardFormElement, validationSettings);
-  formAddValidator.validateOpenPopup();
-
+  addCardFormValidator.resetFormValidationState();
   openPopup(addCardPopup);
 };
 
@@ -98,7 +107,7 @@ function editFormSubmitHandler (evt) {
 function addFormSubmitHandler (evt) {
   evt.preventDefault();
 
-  renderCard({name: placeInput.value, link: linkInput.value}, cards);
+  renderCard({name: placeInput.value, link: linkInput.value});
   
   closePopup(addCardPopup);
 };
@@ -124,16 +133,4 @@ popups.forEach((popup) => {
 editButton.addEventListener('click', openEditPopup);
 addButton.addEventListener('click', openAddCardPopup);
 formEditElement.addEventListener('submit', editFormSubmitHandler);
-cardFormElement.addEventListener('submit', addFormSubmitHandler);
-
-// Включение валидации форм
-function enableFormsValidation() {
-  const formList = Array.from(document.querySelectorAll(validationSettings.formSelector));
-
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(formElement, validationSettings);
-    formValidator.enableValidation();
-  });
-};
-
-enableFormsValidation();
+formCardElement.addEventListener('submit', addFormSubmitHandler);
