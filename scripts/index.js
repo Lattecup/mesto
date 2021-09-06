@@ -1,11 +1,10 @@
 import { Card } from './Card.js';
 import { initialCards } from './initial-cards.js';
 import { FormValidator } from './FormValidator.js';
-export { openPopup, cardImagePopup, imagePopup, imageCaptionPopup };
+import { openPopup, closePopup } from '../utils/utils.js'
 
 const editProfilePopup = document.querySelector('.popup-edit');
 const addCardPopup = document.querySelector('.popup-add');
-const cardImagePopup = document.querySelector('.popup-image');
 const popups = document.querySelectorAll('.popup');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -21,8 +20,6 @@ const linkInput = formCardElement.querySelector('.form__input_type_link');
 //const cardTemplate = document.querySelector('#card-template');
 //const cardContent = cardTemplate.content.querySelector('.card');
 const cards = document.querySelector('.cards');
-const imagePopup = document.querySelector('.popup__image');
-const imageCaptionPopup = document.querySelector('.popup__image-caption');
 const validationSettings = {
   formSelector: '.form',
   inputSelector: '.form__input',
@@ -55,26 +52,6 @@ function renderCard(element) {
 initialCards.forEach((element) => {
   renderCard(element);
 });
-
-// Закрытие попапа по Esc
-const closePopupByEsc = (evt) => {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  };
-};
-
-// Открытие попапа
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupByEsc);
-};
-
-// Закрытие попапа
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupByEsc);
-};
 
 // Открытие попапа редактирования профиля
 function openEditPopup() {

@@ -5,5 +5,6 @@
 * CSS3 (Flexbox, Grid Layout, @media)
 * JavaScript
 * BEM methodology
+* ООП
 ### Работа доступна по ссылке:
 https://lattecup.github.io/mesto/
