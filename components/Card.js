@@ -1,11 +1,9 @@
-import { cardImagePopup, imagePopup, imageCaptionPopup } from '../utils/constants.js';
-import { openPopup } from '../utils/utils.js';
-
-export class Card {
-  constructor(data, cardSelector) {
-    this.name = data.name;
-    this.link = data.link;
+export default class Card {
+  constructor(data, cardSelector, handleCardClick) {
+    this._name = data.name;
+    this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   };
 
   _getTemplate() {
@@ -25,9 +23,9 @@ export class Card {
     const cardImage = this._element.querySelector('.card__image');
     const cardCaption = this._element.querySelector('.card__caption');
 
-    cardImage.src = this.link;
-    cardImage.alt = this.alt;
-    cardCaption.textContent = this.name;
+    cardImage.src = this._link;
+    cardImage.alt = this._alt;
+    cardCaption.textContent = this._name;
 
     return this._element;
   };
@@ -40,14 +38,6 @@ export class Card {
     this._element.querySelector('.card__remove-button').closest('.card').remove();
   };
 
-  _handlePreviewImage() {
-    imagePopup.src = this.link;
-    imagePopup.alt = this.name;
-    imageCaptionPopup.textContent = this.name;
-
-    openPopup(cardImagePopup);
-  };
-
   _setEventListeners() {
     this._element.querySelector('.card__like-button').addEventListener('click', () => {
       this._handleLikeIcon();
@@ -57,8 +47,6 @@ export class Card {
       this._handleRemoveCard();
     });
 
-    this._element.querySelector('.card__image').addEventListener('click', () => {
-      this._handlePreviewImage();
-    });
+    this._element.querySelector('.card__image').addEventListener('click', this._handleCardClick);
   };
 };
