@@ -2,6 +2,8 @@ export default class FormValidator {
   constructor(formElement, validationSettings) {
     this._formElement = formElement;
     this._validationSettings = validationSettings;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._validationSettings.inputSelector));
+    this._submitButton = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
   };
 
   // Показать класс с ошибкой
@@ -32,44 +34,38 @@ export default class FormValidator {
   };
 
   // Проверка валидности всех полей ввода
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
 
   // Переключение кнопки submit
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._validationSettings.disabledButtonClass);
-      buttonElement.setAttribute('disabled', true);
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._submitButton.classList.add(this._validationSettings.disabledButtonClass);
+      this._submitButton.setAttribute('disabled', true);
     } else {
-      buttonElement.classList.remove(this._validationSettings.disabledButtonClass);
-      buttonElement.removeAttribute('disabled');
+      this._submitButton.classList.remove(this._validationSettings.disabledButtonClass);
+      this._submitButton.removeAttribute('disabled');
     };
   };
 
   // Валидация открываемого попапа
   resetFormValidationState() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._validationSettings.inputSelector));
-    const buttonElement = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
-
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
 
-    this._toggleButtonState(inputList, buttonElement);
+    this._toggleButtonState(this._inputList, this._submitButton);
   };
 
   // Добавление обработчиков всем полям формы
   _setEventListeners() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._validationSettings.inputSelector));
-    const buttonElement = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
-
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement, this._validationSettings.disabledButtonClass);
+        this._toggleButtonState(this._inputList, this._submitButton, this._validationSettings.disabledButtonClass);
       });
     });
   };

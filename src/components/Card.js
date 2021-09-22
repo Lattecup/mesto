@@ -35,7 +35,8 @@ export default class Card {
   };
 
   _handleRemoveCard() {
-    this._element.querySelector('.card__remove-button').closest('.card').remove();
+    this._element.remove();
+    this._element = null;
   };
 
   _setEventListeners() {

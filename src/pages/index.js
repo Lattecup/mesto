@@ -29,16 +29,17 @@ editProfileFormValidator.enableValidation();
 
 // Создание экземпляра карточки
 function createCard(element) {
-  return new Card(element, '#card-template', () => {
+  const card = new Card(element, '#card-template', () => {
     cardPreviewPopup.open(element);
   });
+  const cardElement = card.generateCard();
+  return cardElement;
 };
 
 // Получение разметки новой карточки
 function renderCard(element) {
-  const card = createCard(element);
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
+  const newCard = createCard(element);
+  cardList.addItem(newCard);
 };
 
 // Создание коллекции карточек
