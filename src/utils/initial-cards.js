@@ -1,26 +1,33 @@
+import elbrusImg from '../images/elements-elbrus.jpg';
+import kappadokiaImg from '../images/elements-kappadokiya.jpg';
+import kamchatkaImg from '../images/elements-kamchatka.jpg';
+import himalayasImg from '../images/elements-himalayas.jpg';
+import poppyImg from '../images/elements-makovoe-pole.jpg';
+import icelandImg from '../images/elements-iceland-northen-lights.jpg';
+
 export const initialCards = [
   {
     name: 'Эльбрус',
-    link: './images/elements-elbrus.jpg'
+    link: elbrusImg
   },
   {
     name: 'Шары в Каппадокии',
-    link: './images/elements-kappadokiya.jpg'
+    link: kappadokiaImg 
   },
   {
     name: 'Закат на Камчатке',
-    link: './images/elements-kamchatka.jpg'
+    link: kamchatkaImg
   },
   {
     name: 'Гималаи',
-    link: './images/elements-himalayas.jpg'
+    link: himalayasImg
   },
   {
     name: 'Маковое поле',
-    link: './images/elements-makovoe-pole.jpg'
+    link: poppyImg
   },
   {
     name: 'Северное сияние в Исландии',
-    link: './images/elements-iceland-northen-lights.jpg'
+    link: icelandImg
   }
 ];

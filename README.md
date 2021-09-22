@@ -6,5 +6,6 @@
 * JavaScript
 * BEM methodology
 * ООП
+* Webpack
 ### Работа доступна по ссылке:
 https://lattecup.github.io/mesto/
