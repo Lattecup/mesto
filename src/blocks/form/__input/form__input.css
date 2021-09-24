@@ -4,7 +4,7 @@
   border-left: 0;
   border-right: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-  padding: 22px 0 17px;
+  padding: 26px 0 17px;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -26,6 +26,6 @@
 
 @media screen and (max-width: 620px) {
   .form__input {
-    padding: 31px 0 9px;
+    padding: 38px 0 9px;
   }
 }

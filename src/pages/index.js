@@ -10,6 +10,9 @@ import { initialCards } from '../utils/initial-cards.js';
 import {
   editButton,
   addButton,
+  changeButton,
+  formChangeElement,
+  avatarLinkInput,
   formEditElement,
   nameInput,
   jobInput,
@@ -26,6 +29,10 @@ addCardFormValidator.enableValidation();
 // Валидатор формы редактирования профиля
 const editProfileFormValidator = new FormValidator(formEditElement, validationSettings);
 editProfileFormValidator.enableValidation();
+
+// Валидатор формы изменения аватара
+const changeAvatarFormValidator = new FormValidator(formChangeElement, validationSettings);
+changeAvatarFormValidator.enableValidation();
 
 // Создание экземпляра карточки
 function createCard(element) {
@@ -59,7 +66,8 @@ const editProfilePopup = new PopupWithForm('.popup-edit', editFormSubmitHandler)
 
 const userInfo = new UserInfo({
   userNameSelector: '.profile__title',
-  userInfoSelector: '.profile__subtitle'
+  userInfoSelector: '.profile__subtitle',
+  userAvatarSelector: '.profile__avatar'
 });
 
 function editFormSubmitHandler() {
@@ -89,9 +97,24 @@ function openAddCardPopup() {
   addCardPopup.open();
 };
 
+// Попап изменения аватара
+const changeAvatarPopup = new PopupWithForm('.popup-avatar', changeFormSubmitHandler);
+
+function changeFormSubmitHandler() {
+  userInfo.setUserAvatar({ link: avatarLinkInput.value });
+  changeAvatarPopup.close();
+};
+
+function openChangeAvatarPopup() {
+  changeAvatarFormValidator.resetFormValidationState();
+  changeAvatarPopup.open();
+};
+
+changeAvatarPopup.setEventListeners();
 cardPreviewPopup.setEventListeners();
 editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
 
+changeButton.addEventListener('click', openChangeAvatarPopup);
 editButton.addEventListener('click', openEditPopup);
 addButton.addEventListener('click', openAddCardPopup);
