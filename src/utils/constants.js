@@ -10,7 +10,7 @@ export {
   formCardElement,
   placeInput,
   linkInput,
-  validationSettings
+  validationSettings,
 };
 
 const editButton = document.querySelector('.profile__edit-button');

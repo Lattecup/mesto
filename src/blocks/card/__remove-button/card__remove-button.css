@@ -13,6 +13,7 @@
   top: 18px;
   right: 15px;
   background-color: transparent;
+  display: none;
 }
 
 .card__remove-button:hover {

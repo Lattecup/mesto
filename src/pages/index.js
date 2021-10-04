@@ -4,9 +4,9 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import { initialCards } from '../utils/initial-cards.js';
+import Api from '../components/Api.js'
 import {
   editButton,
   addButton,
@@ -19,8 +19,16 @@ import {
   formCardElement,
   placeInput,
   linkInput,
-  validationSettings
+  validationSettings,
 } from '../utils/constants.js';
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-28',
+  headers: {
+    authorization: 'd5f4b13b-5ee9-4277-b0be-f215cd379279',
+    'Content-Type': 'application/json'
+  }
+});
 
 // Валидатор формы добавления карточки
 const addCardFormValidator = new FormValidator(formCardElement, validationSettings);
@@ -36,9 +44,34 @@ changeAvatarFormValidator.enableValidation();
 
 // Создание экземпляра карточки
 function createCard(element) {
-  const card = new Card(element, '#card-template', () => {
-    cardPreviewPopup.open(element);
+  const card = new Card(userInfo.id, element, '#card-template', {
+    handleCardClick: () => {
+      cardPreviewPopup.open(element)
+    },
+
+    handleLikeSet: () => {
+      api.setLike(element._id)
+        .then((data) => {
+          card.handleLikeCounter(data);
+          card.handleAddLikeIcon();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
+
+    handleLikeRemove: () => {
+      api.removeLike(element._id)
+        .then((data) => {
+          card.handleLikeCounter(data);
+          card.handleRemoveLikeIcon();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
   });
+
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -51,12 +84,37 @@ function renderCard(element) {
 
 // Создание коллекции карточек
 const cardList = new Section({
-  items: initialCards,
   renderer: renderCard
 }, '.cards');
 
-// Заполнение страницы исходным массивом карточек
-cardList.renderItems();
+// Получение карточек с сервера
+api.getInitialCards()
+  .then((data) => {
+    cardList.renderItems(data);
+  });
+
+// Попап добавления карточки
+const addCardPopup = new PopupWithForm('.popup-add', addFormSubmitHandler);
+
+function addFormSubmitHandler() {
+  addCardPopup.handleLoading(true);
+  api.postCard({ name: placeInput.value, link: linkInput.value })
+    .then((data) => {
+      renderCard(data);
+      addCardPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      addCardPopup.handleLoading(false);
+    });
+};
+
+function openAddCardPopup() {
+  addCardFormValidator.resetFormValidationState();
+  addCardPopup.open();
+};
 
 // Попап превью изображения
 const cardPreviewPopup = new PopupWithImage('.popup-image');
@@ -70,10 +128,26 @@ const userInfo = new UserInfo({
   userAvatarSelector: '.profile__avatar'
 });
 
+// Получение данных профиля с сервера
+api.getUserInfo()
+  .then((data) => {
+    userInfo.setUserInfo(data);
+  });
+
 function editFormSubmitHandler() {
-  userInfo.setUserInfo({ name: nameInput.value, info: jobInput.value });
-  editProfilePopup.close();
-};
+  editProfilePopup.handleLoading(true);
+  api.setUserInfo({ name: nameInput.value, info: jobInput.value })
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      editProfilePopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editProfilePopup.handleLoading(false);
+    });
+  };
 
 function openEditPopup() {
   const userData = userInfo.getUserInfo();
@@ -84,25 +158,22 @@ function openEditPopup() {
   editProfilePopup.open();
 };
 
-// Попап добавления карточки
-const addCardPopup = new PopupWithForm('.popup-add', addFormSubmitHandler);
-
-function addFormSubmitHandler() {
-  renderCard({ name: placeInput.value, link: linkInput.value });
-  addCardPopup.close();
-};
-
-function openAddCardPopup() {
-  addCardFormValidator.resetFormValidationState();
-  addCardPopup.open();
-};
-
-// Попап изменения аватара
+// Попап обновления аватара
 const changeAvatarPopup = new PopupWithForm('.popup-avatar', changeFormSubmitHandler);
 
 function changeFormSubmitHandler() {
-  userInfo.setUserAvatar({ link: avatarLinkInput.value });
-  changeAvatarPopup.close();
+  changeAvatarPopup.handleLoading(true);
+  api.changeAvatar(avatarLinkInput.value)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      changeAvatarPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      changeAvatarPopup.handleLoading(false);
+    });
 };
 
 function openChangeAvatarPopup() {
