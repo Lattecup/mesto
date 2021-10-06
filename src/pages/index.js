@@ -13,13 +13,10 @@ import {
   addButton,
   changeButton,
   formChangeElement,
-  avatarLinkInput,
   formEditElement,
   nameInput,
   jobInput,
   formCardElement,
-  placeInput,
-  linkInput,
   validationSettings,
 } from '../utils/constants.js';
 
