@@ -42,7 +42,7 @@ export default class FormValidator {
 
   // Переключение кнопки submit
   _toggleButtonState() {
-    if (this._hasInvalidInput(this._inputList)) {
+    if (this._hasInvalidInput()) {
       this._submitButton.classList.add(this._validationSettings.disabledButtonClass);
       this._submitButton.setAttribute('disabled', true);
     } else {
@@ -57,7 +57,7 @@ export default class FormValidator {
       this._hideInputError(inputElement);
     });
 
-    this._toggleButtonState(this._inputList, this._submitButton);
+    this._toggleButtonState();
   };
 
   // Добавление обработчиков всем полям формы
@@ -65,7 +65,7 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(this._inputList, this._submitButton, this._validationSettings.disabledButtonClass);
+        this._toggleButtonState();
       });
     });
   };

@@ -124,9 +124,9 @@ const cardList = new Section({
 // Попап добавления карточки
 const addCardPopup = new PopupWithForm('.popup-add', addFormSubmitHandler);
 
-function addFormSubmitHandler() {
+function addFormSubmitHandler(data) {
   addCardPopup.handleLoading(true);
-  api.postCard({ name: placeInput.value, link: linkInput.value })
+  api.postCard(data)
     .then((data) => {
       renderCard(data);
       addCardPopup.close();
@@ -159,9 +159,9 @@ const userInfo = new UserInfo({
   userAvatarSelector: '.profile__avatar'
 });
 
-function editFormSubmitHandler() {
+function editFormSubmitHandler(data) {
   editProfilePopup.handleLoading(true);
-  api.setUserInfo({ name: nameInput.value, info: jobInput.value })
+  api.setUserInfo(data)
     .then((data) => {
       userInfo.setUserInfo(data);
       editProfilePopup.close();
@@ -186,9 +186,9 @@ function openEditPopup() {
 // Попап обновления аватара
 const changeAvatarPopup = new PopupWithForm('.popup-avatar', changeFormSubmitHandler);
 
-function changeFormSubmitHandler() {
+function changeFormSubmitHandler(data) {
   changeAvatarPopup.handleLoading(true);
-  api.changeAvatar(avatarLinkInput.value)
+  api.changeAvatar(data.link)
     .then((data) => {
       userInfo.setUserInfo(data);
       changeAvatarPopup.close();
